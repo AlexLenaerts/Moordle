@@ -1,0 +1,11 @@
+C:\Users\Alexandre\source\repos\woordle\woordle\bin\Debug\woordle.exe.config
+C:\Users\Alexandre\source\repos\woordle\woordle\bin\Debug\woordle.exe
+C:\Users\Alexandre\source\repos\woordle\woordle\bin\Debug\woordle.pdb
+C:\Users\Alexandre\source\repos\woordle\woordle\obj\Debug\woordle.csproj.AssemblyReference.cache
+C:\Users\Alexandre\source\repos\woordle\woordle\obj\Debug\woordle.csproj.CoreCompileInputs.cache
+C:\Users\Alexandre\source\repos\woordle\woordle\obj\Debug\woordle.exe
+C:\Users\Alexandre\source\repos\woordle\woordle\obj\Debug\woordle.pdb
+C:\Users\Alexandre\source\repos\woordle\woordle\bin\Debug\Developpez.Dotnet.dll
+C:\Users\Alexandre\source\repos\woordle\woordle\bin\Debug\Developpez.Dotnet.xml
+C:\Users\Alexandre\source\repos\woordle\woordle\bin\Debug\fr\Developpez.Dotnet.resources.dll
+C:\Users\Alexandre\source\repos\woordle\woordle\obj\Debug\woordle.csproj.CopyComplete
