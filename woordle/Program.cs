@@ -111,7 +111,6 @@ namespace woordle
                     stop = true;
                 }
             }
-            Console.ReadKey();
         }
 
     }
