@@ -17,19 +17,20 @@ namespace woordle
             string wordfound = string.Empty;
             var listLetters = new List<string>();
             char[] alpha = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".ToLower().ToArray();
-            Console.WriteLine($"Entrez un nombre de lettres ?");
-            int nbLetters = int.Parse(Console.ReadLine());
-            var word = StringExtensions.RemoveDiacritics(RandomWordGenerator.CreateRandomWord(nbLetters).ToLower());
+            //Console.WriteLine($"Entrez un nombre de lettres ?");
+            int nbLetters = 5;//int.Parse(Console.ReadLine());
+            var word = StringExtensions.RemoveDiacritics(Moordle.CreateRandomWord(nbLetters).ToLower());
             Console.WriteLine(" ");
             Console.WriteLine(word.Substring(0, 1)+ new string('?', nbLetters - 1));
+            listLetters.Add(word.Substring(0, 1));
             Console.WriteLine(" ");
             while (count < maxCount)
             {
-                Console.WriteLine($"Nombre de lettres disponibles:");
+                Console.WriteLine(" ");
+                Console.WriteLine($"[{count}] Nombre de lettres disponibles:");
                 Console.WriteLine(alpha);
                 Console.WriteLine(" ");
-                Console.WriteLine($"Entrez un mot de {nbLetters} lettres");
-                Console.WriteLine(" ");
+                
                 Console.WriteLine(wordfound);
                 wordfound = word;
                 var test = Console.ReadLine().ToLower();
@@ -52,7 +53,7 @@ namespace woordle
                             }
                             else if (word.ToList().Contains(test[a]))
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.Write(test[a]);
                             }
                             else
@@ -62,19 +63,19 @@ namespace woordle
                             }
                             alpha = alpha.Where(val => val != test[a]).ToArray();
                         }
-                        listLetters = listLetters.Distinct().ToList();
                         
-                        foreach (var element in word)
-                        {
-                            if (!listLetters.Contains(element.ToString()))
-                            {
-                                wordfound = wordfound.Replace(element, '?');
-                            }
-                        }
                     }
                     else
                     {
                         Console.WriteLine("taille incorrecte");
+                    }
+                    listLetters = listLetters.Distinct().ToList();
+                    foreach (var element in word)
+                    {
+                        if (!listLetters.Contains(element.ToString()))
+                        {
+                            wordfound = wordfound.Replace(element, '?');
+                        }
                     }
                 }
                 count += 1;
@@ -84,12 +85,12 @@ namespace woordle
             if (found)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("BINGO");
+                Console.WriteLine("BINGO !");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"le mot était: {word}");
+                Console.WriteLine($"Perdu: le mot était: {word}");
             }
             Console.ReadKey();
         }

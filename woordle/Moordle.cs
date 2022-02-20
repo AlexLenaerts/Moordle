@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace woordle
 {
-    public static class RandomWordGenerator
+    public static class Moordle
     {
 
         /// <summary>
