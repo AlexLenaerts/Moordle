@@ -18,18 +18,23 @@ namespace woordle
             var listLetters = new List<string>();
             int nbLetters = 5;
             bool stop = false;
+
+
+            Console.WriteLine("Bienvenue sur Moordle !");
+
+
             while (!stop)
             {
                 bool found = false;
                 var word = StringExtensions.RemoveDiacritics(Moordle.CreateRandomWord(nbLetters).ToLower());
                 Console.WriteLine(" ");
-                Console.WriteLine(word.Substring(0, 1) + new string('?', nbLetters - 1));
+                Console.WriteLine("Mot du jour : "+word.Substring(0, 1) + new string('?', nbLetters - 1));
                 listLetters.Add(word.Substring(0, 1));
                 Console.WriteLine(" ");
                 while (count < maxCount)
                 {
                     Console.WriteLine(" ");
-                    Console.WriteLine($"[{count}] Nombre de lettres disponibles:");
+                    Console.WriteLine($"[{count+1}] Nombre de lettres disponibles:");
                     Console.WriteLine(alpha);
                     Console.WriteLine(" ");
 
