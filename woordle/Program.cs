@@ -20,11 +20,16 @@ namespace woordle
             Console.WriteLine($"Entrez un nombre de lettres ?");
             int nbLetters = int.Parse(Console.ReadLine());
             var word = StringExtensions.RemoveDiacritics(RandomWordGenerator.CreateRandomWord(nbLetters).ToLower());
+            Console.WriteLine(" ");
             Console.WriteLine(word.Substring(0, 1)+ new string('?', nbLetters - 1));
+            Console.WriteLine(" ");
             while (count < maxCount)
             {
+                Console.WriteLine($"Nombre de lettres disponibles:");
                 Console.WriteLine(alpha);
+                Console.WriteLine(" ");
                 Console.WriteLine($"Entrez un mot de {nbLetters} lettres");
+                Console.WriteLine(" ");
                 Console.WriteLine(wordfound);
                 wordfound = word;
                 var test = Console.ReadLine().ToLower();
