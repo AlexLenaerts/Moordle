@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -67,9 +68,9 @@ namespace Moordle.Controllers
 
         public static List<string> GetFrenchDictionnay()
         {
-            string filePath = @"C:\Users\Alexandre\Desktop\";
+            string filePath = @"C:\Users\Alexandre\source\repos\Woordlee\Moordle\dictionary.txt";
             List<string> linesList = new List<string>();
-            string[] fileContent = System.IO.File.ReadAllLines(filePath + "dictionary.txt");
+            string[] fileContent = System.IO.File.ReadAllLines(filePath);
             linesList.AddRange(fileContent);
             var newList = linesList.Select(s => s.Replace(s, StringExtensions.RemoveDiacritics(s).ToLower())).ToList();
             return newList;
