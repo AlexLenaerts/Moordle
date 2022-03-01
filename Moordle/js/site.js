@@ -1,11 +1,12 @@
-﻿const tileDisplay = document.querySelector('.tile-container')
+const tileDisplay = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
 const messageDisplay = document.querySelector('.message-container')
 
 let wordle
+let currenturl = window.location.origin + '/Home/'
 
 const getWordle = () => {
-    fetch('https://localhost:44365/Home/Word')
+    fetch(currenturl+'Word')
         .then(response => response.json())
         .then(json => {
             wordle = json['RandomWord'].toUpperCase()
@@ -113,7 +114,7 @@ const deleteLetter = () => {
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')
     if (currentTile > 4) {
-        fetch(`https://localhost:44365/Home/check/?word=${guess}`)
+        fetch(currenturl+`/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
                 if (json['Error'] == 'Entry word not found') {
