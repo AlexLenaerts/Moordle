@@ -1,6 +1,6 @@
 # Moordle
 
-![alt text](site.png)
+![alt text](woordle.png)
 
 
 ## Description
