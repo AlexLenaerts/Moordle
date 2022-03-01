@@ -1,4 +1,4 @@
-# Moordle 
+# Moordle (Woordle Clone in .NET)
 
 ![alt text](woordle.png)
 
