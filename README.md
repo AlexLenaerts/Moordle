@@ -1,6 +1,6 @@
 # Moordle
 
-![alt text](Capture d’écran 2022-03-01 à 11.38.10.png)
+![alt text](site.png)
 
 
 ## Description
