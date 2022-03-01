@@ -1,10 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using Developpez.Dotnet;
 using Newtonsoft.Json;
@@ -42,7 +39,7 @@ namespace Moordle.Controllers
 
         public ActionResult Check()
         {
-            string param1 = this.Request.QueryString["word"];
+            string param1 = Request.QueryString["word"];
             var dic = GetFrenchDictionnay();
             Message message = new Message();
             
@@ -68,7 +65,7 @@ namespace Moordle.Controllers
 
         public static List<string> GetFrenchDictionnay()
         {
-            string filePath = @"C:\Users\Alexandre\source\repos\Woordlee\Moordle\dictionary.txt";
+            string filePath = Path.GetFullPath("dictionary.txt");
             List<string> linesList = new List<string>();
             string[] fileContent = System.IO.File.ReadAllLines(filePath);
             linesList.AddRange(fileContent);
@@ -77,7 +74,3 @@ namespace Moordle.Controllers
         }
     }
 }
-
-
-
-
