@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Developpez.Dotnet;
 using Newtonsoft.Json;
@@ -42,7 +43,7 @@ namespace Moordle.Controllers
             string param1 = Request.QueryString["word"];
             var dic = GetFrenchDictionnay();
             Message message = new Message();
-            
+
             if (!dic.Where(x => x.Length == 5).Contains(param1.ToLower()))
             {
                 message.Error = "Entry word not found";
@@ -65,7 +66,7 @@ namespace Moordle.Controllers
 
         public static List<string> GetFrenchDictionnay()
         {
-            string filePath = Path.GetFullPath("dictionary.txt");
+            string filePath = HostingEnvironment.ApplicationPhysicalPath + "dico.txt";
             List<string> linesList = new List<string>();
             string[] fileContent = System.IO.File.ReadAllLines(filePath);
             linesList.AddRange(fileContent);

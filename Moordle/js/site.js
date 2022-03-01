@@ -53,13 +53,24 @@ keys.forEach(key => {
     keyboard.append(buttonElement)
 })
 
+document.addEventListener('keydown',
+    function (event) {
+        if (event.keyCode == '8' || event.keyCode == '13') {
+            handleClick(event.keyCode);
+        }
+        else
+        {
+            handleClick(String.fromCharCode(event.keyCode))
+        }
+}, true);
+
 const handleClick = (letter) => {
     if (!isGameOver) {
-        if (letter === '«') {
+        if (letter == '8' || letter == '«') {
             deleteLetter()
             return
         }
-        if (letter === 'ENTER') {
+        if (letter == '13' || letter == 'ENTER') {
             checkRow()
             return
         }
@@ -87,10 +98,12 @@ const deleteLetter = () => {
     }
 }
 
-const checkRow = () => {
+const checkRow = () =>
+{
     const guess = guessRows[currentRow].join('')
-    if (currentTile > 4) {
-        fetch(currenturl+`/check/?word=${guess}`)
+    if (currentTile > 4)
+    {
+            fetch(currenturl + `/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
                 if (json['Error'] == 'Entry word not found') {
@@ -101,16 +114,24 @@ const checkRow = () => {
                     x.forEach(element => element.setAttribute('data', ''));
                     currentTile = 0;
                     return
-                } else {
+                }
+                else {
                     flipTile()
                     if (wordle == guess) {
                         showMessage('Bingo!')
                         isGameOver = true
+                        if (confirm('New Game?')) {
+                            location.reload();
+                        }
                         return
-                    } else {
+                    } else
+                    {
                         if (currentRow >= 5) {
                             isGameOver = true
-                            showMessage('Game Over')
+                            showMessage('Game Over !)
+                            if (confirm('New Game?')) {
+                                location.reload();
+                            }
                             return
                         }
                         if (currentRow < 5) {
@@ -118,6 +139,7 @@ const checkRow = () => {
                             currentTile = 0
                         }
                     }
+                    
                 }
             }).catch(err => console.log(err))
     }
@@ -166,3 +188,4 @@ const flipTile = () => {
         }, 500 * index)
     })
 }
+
