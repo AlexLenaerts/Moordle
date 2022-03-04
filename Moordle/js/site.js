@@ -4,6 +4,7 @@ const messageDisplay = document.querySelector('.message-container')
 
 let wordle
 let currenturl = window.location.origin + '/Home/'
+let definition
 
 const getWordle = () => {
     fetch(currenturl+'Word')
@@ -128,10 +129,22 @@ const checkRow = () =>
                     {
                         if (currentRow >= 5) {
                             isGameOver = true
-                            showMessage('Game Over !)
-                            if (confirm('New Game?')) {
-                                location.reload();
-                            }
+                            showMessage()
+                            fetch(currenturl + `/definition/?word=${wordle.toLowerCase()}`)
+                                .then(response => response.json())
+                                .then(json => {
+                                    var newLine = "\r\n";
+                                    var msg = "Game Over !";
+                                    msg += newLine;
+                                    msg += "Le mot était: " + wordle;
+                                    msg += newLine;
+                                    msg += "Définition: " + json['Definition'];
+                                    msg += newLine;
+                                    msg += "Rejouez ?";
+                                    if (confirm(msg)) {
+                                        location.reload();
+                                    }
+                                })
                             return
                         }
                         if (currentRow < 5) {
@@ -151,6 +164,14 @@ const showMessage = (message) => {
     messageDisplay.append(messageElement)
     setTimeout(() => messageDisplay.removeChild(messageElement), 2000)
 }
+
+const showLongMessage = (message) => {
+    const messageElement = document.createElement('p')
+    messageElement.textContent = message
+    messageDisplay.append(messageElement)
+    setTimeout(() => messageDisplay.removeChild(messageElement), 10000)
+}
+
 
 const addColorToKey = (keyLetter, color) => {
     const key = document.getElementById(keyLetter)

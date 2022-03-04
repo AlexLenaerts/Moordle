@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using Developpez.Dotnet;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+
 
 namespace Moordle.Controllers
 {
@@ -26,6 +30,27 @@ namespace Moordle.Controllers
             return View(Index());
         }
 
+        [Route("definition")]
+        public async Task<ActionResult> Definition()
+        {
+            string pattern = @"([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))";
+            string word = Request.QueryString["word"];
+            var def = await GetDefiniton(word);
+            Message message = new Message();
+            if (!string.IsNullOrEmpty(def))
+            {
+                Match match = new Regex(pattern).Match(def);
+                string unmatchedString = def.Replace(match.Value, "");
+                message.Definition = unmatchedString;
+            }
+            else
+            {
+                message.Definition = "Aucune définiton";
+            }
+            WriteHttp(message);
+            return View(Index());
+        }
+
         private void WriteHttp(object obj)
         {
             string json = JsonConvert.SerializeObject(obj);
@@ -37,7 +62,6 @@ namespace Moordle.Controllers
         }
 
         [Route("check")]
-
         public ActionResult Check()
         {
             string param1 = Request.QueryString["word"];
@@ -54,6 +78,34 @@ namespace Moordle.Controllers
             return View(Index());
         }
 
+        private async Task<string> GetDefiniton(string word)
+        {
+            var url = $@"https://frenchwordsapi.herokuapp.com/api/WordDefinition?idOrName=" + word;
+            var response = await CallGetAPI<ResponseAPI>(url);
+            if (response.Definition != null)
+            {
+                return response.Definition.First();
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+
+        private async Task<ResponseAPI> CallGetAPI<T>(string url)
+        {
+            HttpClient client = new HttpClient();
+            var responseMessage = await client.GetAsync(url);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<ResponseAPI>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                return new ResponseAPI();
+            }
+        }
 
         public static Word CreateRandomWord(int nbLetters)
         {
@@ -73,5 +125,7 @@ namespace Moordle.Controllers
             var newList = linesList.Select(s => s.Replace(s, StringExtensions.RemoveDiacritics(s).ToLower())).ToList();
             return newList;
         }
+
+
     }
 }
