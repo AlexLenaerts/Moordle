@@ -67,9 +67,6 @@ keys.forEach(key => {
     count++
     })
 
-
-
-
 document.addEventListener('keydown',
     function (event) {
         if (event.keyCode == '8' || event.keyCode == '13') {
@@ -135,12 +132,23 @@ const checkRow = () =>
                 else {
                     flipTile()
                     if (wordle == guess) {
-                        showMessage('Bingo!')
-                        isGameOver = true
-                        if (confirm('New Game?')) {
-                            location.reload();
-                        }
-                        return
+                        fetch(currenturl + `/definition/?word=${wordle.toLowerCase()}`)
+                            .then(response => response.json())
+                            .then(json => {
+                                var msg = "'Bingo!";
+                                var newLine = "\r\n";
+                                msg += newLine;
+                                msg += "Le mot était: " + wordle;
+                                msg += newLine;
+                                msg += "Définition: " + json['Definition'];
+                                msg += newLine;
+                                msg += 'New Game?';
+                                isGameOver = true
+                                if (confirm(msg)) {
+                                    location.reload();
+                                }
+                            })
+                                return
                     } else
                     {
                         if (currentRow >= 5) {

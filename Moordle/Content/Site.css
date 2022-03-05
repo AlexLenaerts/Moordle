@@ -9,7 +9,7 @@ body {
 
 .game-container {
     display: flex;
-    height: 90vh;
+    height: 80vh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -141,4 +141,8 @@ body {
 
 .border-bottom {
     border-bottom: 1px solid #e5e5e5;
+}
+
+center > a {
+    display: none;
 }
