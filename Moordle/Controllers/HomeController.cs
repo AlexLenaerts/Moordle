@@ -40,8 +40,14 @@ namespace Moordle.Controllers
             if (!string.IsNullOrEmpty(def))
             {
                 Match match = new Regex(pattern).Match(def);
-                string unmatchedString = def.Replace(match.Value, "");
-                message.Definition = unmatchedString;
+                if (!string.IsNullOrEmpty(match.Value))
+                {
+                    message.Definition = def.Replace(match.Value, "");
+                }
+                else
+                {
+                    message.Definition = def;
+                }
             }
             else
             {

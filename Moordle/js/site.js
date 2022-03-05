@@ -45,14 +45,30 @@ guessRows.forEach((guessRow, guessRowIndex) => {
     })
     tileDisplay.append(rowElement)
 })
-
+let count = 0
 keys.forEach(key => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = key
     buttonElement.setAttribute('id', key)
     buttonElement.addEventListener('click', () => handleClick(key))
-    keyboard.append(buttonElement)
-})
+    if (count <= 9) {
+        const line1 = document.querySelector('.line-1')
+        line1.append(buttonElement);
+    }
+    else if (count > 9 && count <= 19) {
+        const line2 = document.querySelector('.line-2')
+        line2.append(buttonElement);
+    }
+    else
+    {
+        const line3 = document.querySelector('.line-3')
+        line3.append(buttonElement);
+    }
+    count++
+    })
+
+
+
 
 document.addEventListener('keydown',
     function (event) {
