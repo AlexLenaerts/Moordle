@@ -1,6 +1,43 @@
 ﻿<div class="game-container">
     <div class="title-container">
-        <h1>Moordle</h1>
+        <div class="header">
+            <div class="help">
+                <a href="#" onclick="popup()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/1200px-Icon-round-Question_mark.svg.png">
+                </a>
+            </div>
+            <h1>Moordle</h1>
+        </div>
+    </div>
+    <div id="panel-fenetre">
+        <div id="panel-fenetre-header">
+            <h2 id="panel-fenetre-titre">Règles</h2>
+            <div>
+                <a href="#" id="panel-fenetre-bouton-fermeture" onclick="popup()">
+                    <img src="https://freesvg.org/img/close-button.png">
+                </a>
+            </div>
+        </div>
+        <div>
+        </div>
+        <div id="panel-fenetre-notification">&nbsp;</div>
+        <div id="panel-fenetre-contenu">
+            <p>
+                Vous avez six essais pour deviner le mot de 5 lettres.
+                <br>
+                <br> Vous ne pouvez proposer que des mots commençant par la même lettre que le mot recherché, et qui se trouvent dans le dictionnaire.
+                <br>
+                <br><div id="conteneur-exemple"> <img id="exemple" src="~/Content/exemple.png"></div>
+                <br>
+                <br> Les lettres entourées d'un carré vert sont bien placées,
+                <br>
+                <br> les lettres entourées d'un carré jaune sont mal placées (mais présentes dans le mot).
+                <br>
+                <br> Les lettres qui restent sur fond noir ne sont pas dans le mot.
+                <br>
+                <br> <div id="copyright"> ©2022 - Alexandre Lenaerts </div>
+            </p>
+        </div>
     </div>
     <div class="message-container"></div>
     <div class="tile-container"></div>
@@ -10,6 +47,7 @@
         <div class="line-3"></div>
     </div>
 </div>
+
 
 
 

@@ -19,6 +19,10 @@ body {
     text-align: center;
     width: 100%;
     border-bottom: solid 1px #3a3a3c;
+    align-items: center;
+}
+
+.title-container {
 }
 
 .tile-container {
@@ -145,4 +149,81 @@ body {
 
 center > a {
     display: none;
+}
+
+.help {
+    display: flex;
+}
+
+    .help img {
+        width: 60px;
+        height: 100%;
+        background-color: #12121300;
+    }
+
+.header {
+    text-align: center;
+    width: 100%;
+    border-bottom: solid 1px #3a3a3c;
+    display: grid;
+    grid-template-columns: 2fr 6fr 2fr;
+    align-items: center;
+}
+
+#panel-fenetre {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 440px;
+    border: 1px solid;
+    border-radius: 0.25em;
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    overflow-y: auto;
+    display: none;
+}
+
+a #panel-fenetre-bouton-fermeture-icone {
+    width: 32px;
+    height: 32px;
+}
+
+#panel-fenetre-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    width: calc(100% - 1em);
+    height: calc(36px + 0.75em);
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+a#panel-fenetre-bouton-fermeture img {
+    width: 32px;
+    height: 32px;
+}
+
+h2#panel-fenetre-titre {
+    text-align: center;
+    margin: 0px auto;
+}
+
+img#exemple {
+    width: 300px;
+}
+
+#conteneur-exemple {
+    display: flex;
+    justify-content: center;
+}
+
+
+#copyright {
+    color: yellow;
+    text-align: center;
+    margin: 0px auto;
 }

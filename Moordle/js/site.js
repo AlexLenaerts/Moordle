@@ -234,3 +234,11 @@ const flipTile = () => {
     })
 }
 
+function popup() {
+    let togg1 = document.getElementById("panel-fenetre");
+    if (togg1.style.display == "none" || togg1.style.display == "" ) {
+        togg1.style.display = "block";
+    } else if (togg1.style.display == "block"){
+        togg1.style.display = "none";
+    }
+}
