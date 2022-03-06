@@ -168,6 +168,7 @@ center > a {
     display: grid;
     grid-template-columns: 2fr 6fr 2fr;
     align-items: center;
+    border-bottom: 1px solid white;
 }
 
 #panel-fenetre {
@@ -200,6 +201,7 @@ a #panel-fenetre-bouton-fermeture-icone {
     margin-right: 0.5em;
     margin-top: 0.25em;
     margin-bottom: 0.5em;
+    border-bottom: 1px solid white;
 }
 
 a#panel-fenetre-bouton-fermeture img {

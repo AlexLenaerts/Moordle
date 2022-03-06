@@ -260,8 +260,11 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https:
     <File Include="Content/bootstrap.min.css.map">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
+    <File Include="Content/exemple.png">
+      <publishTime>03/06/2022 13:10:25</publishTime>
+    </File>
     <File Include="Content/Site.css">
-      <publishTime>03/05/2022 23:29:24</publishTime>
+      <publishTime>03/06/2022 13:40:42</publishTime>
     </File>
     <File Include="dico.txt">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -288,7 +291,7 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https:
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="js/site.js">
-      <publishTime>03/05/2022 23:46:46</publishTime>
+      <publishTime>03/06/2022 11:36:50</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
       <publishTime>05/03/2022 18:17:21</publishTime>
@@ -336,7 +339,7 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https:
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/03/2022 15:58:14</publishTime>
+      <publishTime>03/06/2022 13:41:42</publishTime>
     </File>
     <File Include="Views/Home/Word.cshtml">
       <publishTime>01/01/0001 00:00:00</publishTime>
