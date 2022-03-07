@@ -70,11 +70,11 @@ namespace Moordle.Controllers
         [Route("check")]
         public ActionResult Check()
         {
-            string param1 = Request.QueryString["word"];
+            string word = Request.QueryString["word"];
             var dic = GetFrenchDictionnay();
             Message message = new Message();
 
-            if (!dic.Where(x => x.Length == 5).Contains(param1.ToLower()))
+            if (!dic.Where(x => x.Length == 5).Contains(word.ToLower())||string.IsNullOrEmpty(word))
             {
                 message.Error = "Entry word not found";
             }
