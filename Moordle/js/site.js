@@ -135,18 +135,26 @@ const checkRow = () =>
                         fetch(currenturl + `/definition/?word=${wordle.toLowerCase()}`)
                             .then(response => response.json())
                             .then(json => {
-                                var msg = "'Bingo!";
                                 var newLine = "\r\n";
                                 msg += newLine;
-                                msg += "Le mot était: " + wordle;
+                                var msg =  "Le mot était: " + wordle;
                                 msg += newLine;
                                 msg += "Définition: " + json['Definition'];
                                 msg += newLine;
                                 msg += 'New Game?';
                                 isGameOver = true
-                                if (confirm(msg)) {
-                                    location.reload();
-                                }
+                                swal({
+                                    title: "Bingo !",
+                                    text: msg,
+                                    className: "title1",
+                                    buttons: true,
+                                    dangerMode: true,
+                                })
+                                    .then((willDelete) => {
+                                        if (willDelete) {
+                                            location.reload()
+                                        }
+                                    });
                             })
                                 return
                     } else
@@ -158,16 +166,23 @@ const checkRow = () =>
                                 .then(response => response.json())
                                 .then(json => {
                                     var newLine = "\r\n";
-                                    var msg = "Game Over !";
-                                    msg += newLine;
-                                    msg += "Le mot était: " + wordle;
+                                    var msg = "Le mot était: " + wordle;
                                     msg += newLine;
                                     msg += "Définition: " + json['Definition'];
                                     msg += newLine;
                                     msg += "Rejouez ?";
-                                    if (confirm(msg)) {
-                                        location.reload();
-                                    }
+                                    swal({
+                                        className: "title2",
+                                        title: "Game Over !",
+                                        text: msg,
+                                        buttons: true,
+                                        dangerMode: true,
+                                    })
+                                        .then((willDelete) => {
+                                            if (willDelete) {
+                                                location.reload()
+                                            }
+                                        });
                                 })
                             return
                         }

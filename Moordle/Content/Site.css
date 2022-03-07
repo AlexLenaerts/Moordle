@@ -229,3 +229,30 @@ img#exemple {
     text-align: center;
     margin: 0px auto;
 }
+
+
+.swal-modal {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 3px solid white;
+}
+
+.title1 .swal-title {
+    margin: 0px;
+    font-size: 30px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
+    margin-bottom: 28px;
+    color: #538d4e;
+}
+
+
+.title2 .swal-title {
+    margin: 0px;
+    font-size: 30px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
+    margin-bottom: 28px;
+    color: red;
+}
+
+.swal-text {
+    color: white
+}
