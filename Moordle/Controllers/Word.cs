@@ -2,7 +2,9 @@
 {
     public class Word
     {
-        public string RandomWord { get; set; }
+        public string item { get; set; }
+        public int Length { get; set; }
+
 
     }
 }

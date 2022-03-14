@@ -24,7 +24,7 @@ namespace Moordle.Controllers
         [Route("word")]
         public ActionResult Word()
         {
-            Word word = CreateRandomWord(5);
+            RandomWord word = CreateRandomWord(5);
             WriteHttp(word);
             
             return View(Index());
@@ -74,7 +74,7 @@ namespace Moordle.Controllers
             var dic = GetFrenchDictionnay();
             Message message = new Message();
 
-            if (!dic.Where(x => x.Length == 5).Contains(word.ToLower())||string.IsNullOrEmpty(word))
+            if (!dic.Dico.Where(x => x.item == word.ToLower()).Any() || string.IsNullOrEmpty(word))
             {
                 message.Error = "Entry word not found";
             }
@@ -88,6 +88,7 @@ namespace Moordle.Controllers
         {
             var url = $@"https://frenchwordsapi.herokuapp.com/api/WordDefinition?idOrName=" + word;
             var response = await CallGetAPI<ResponseAPI>(url);
+
             if (response.Definition != null)
             {
                 return response.Definition.First();
@@ -97,7 +98,6 @@ namespace Moordle.Controllers
                 return string.Empty;
             }
         }
-
 
         private async Task<ResponseAPI> CallGetAPI<T>(string url)
         {
@@ -113,23 +113,18 @@ namespace Moordle.Controllers
             }
         }
 
-        public static Word CreateRandomWord(int nbLetters)
+        public static RandomWord CreateRandomWord(int nbLetters)
         {
             Random rnd = new Random();
             var dic = GetFrenchDictionnay();
-            var word = dic.Where(x => x.Length == nbLetters).ToArray();
-            string randomString = $"{word[rnd.Next(0, word.Length)]}";
-            return new Word { RandomWord = StringExtensions.RemoveDiacritics(randomString) };
+            var word = dic.Dico.Where(x => x.Length == nbLetters).ToArray();
+            string randomString = $"{word[rnd.Next(0, word.Length)].item}";
+            return new RandomWord { Random = randomString };
         }
 
-        public static List<string> GetFrenchDictionnay()
+        public static Dic GetFrenchDictionnay()
         {
-            string filePath = HostingEnvironment.ApplicationPhysicalPath + "dico.txt";
-            List<string> linesList = new List<string>();
-            string[] fileContent = System.IO.File.ReadAllLines(filePath);
-            linesList.AddRange(fileContent);
-            var newList = linesList.Select(s => s.Replace(s, StringExtensions.RemoveDiacritics(s).ToLower())).ToList();
-            return newList;
+           return (JsonConvert.DeserializeObject<Dic>(System.IO.File.ReadAllText(HostingEnvironment.ApplicationPhysicalPath + "dico.json")));
         }
 
 

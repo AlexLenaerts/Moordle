@@ -10,7 +10,7 @@ const getWordle = () => {
     fetch(currenturl+'Word')
         .then(response => response.json())
         .then(json => {
-            wordle = json['RandomWord'].toUpperCase()
+            wordle = json['Random'].toUpperCase()
         })
         .catch(err => console.log(err))
 }
