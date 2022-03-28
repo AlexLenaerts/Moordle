@@ -5,7 +5,7 @@ const messageDisplay = document.querySelector('.message-container')
 let wordle
 let currenturl = window.location.origin + '/Home/'
 let definition
-
+let old_timestamp = null
 const getWordle = () => {
     fetch(currenturl+'Word')
         .then(response => response.json())
@@ -50,7 +50,7 @@ keys.forEach(key => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = key
     buttonElement.setAttribute('id', key)
-    buttonElement.addEventListener('click', () => handleClick(key))
+    buttonElement.addEventListener('click', () => handleClick(key,event))
     if (count <= 9) {
         const line1 = document.querySelector('.line-1')
         line1.append(buttonElement);
@@ -70,25 +70,28 @@ keys.forEach(key => {
 document.addEventListener('keydown',
     function (event) {
         if (event.keyCode == '8' || event.keyCode == '13') {
-            handleClick(event.keyCode);
+            handleClick(event.keyCode,event);
         }
         else
         {
-            handleClick(String.fromCharCode(event.keyCode))
+            handleClick(String.fromCharCode(event.keyCode),event)
         }
 }, true);
 
-const handleClick = (letter) => {
+const handleClick = (letter,event) => {
     if (!isGameOver) {
         if (letter == '8' || letter == '«') {
             deleteLetter()
             return
         }
-        if (letter == '13' || letter == 'ENTER') {
+        if ((letter == '13' || letter == 'ENTER') && (old_timestamp == null || old_timestamp + 1000 < event.timeStamp)) {
+            old_timestamp = event.timeStamp
             checkRow()
             return
         }
-        addLetter(letter)
+        if (letter != 'ENTER' && letter != '13') {
+            addLetter(letter)
+        }
     }
 }
 

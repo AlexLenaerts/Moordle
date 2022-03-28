@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using Developpez.Dotnet;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-
+using Newtonsoft.Json.Linq;
 
 namespace Moordle.Controllers
 {
@@ -68,13 +68,13 @@ namespace Moordle.Controllers
         }
 
         [Route("check")]
-        public ActionResult Check()
+        public async Task<ActionResult> Check()
         {
             string word = Request.QueryString["word"];
-            var dic = GetFrenchDictionnay();
+            var dic = await GetWord(word);
             Message message = new Message();
 
-            if (!dic.Dico.Where(x => x.item == word.ToLower()).Any() || string.IsNullOrEmpty(word))
+            if (dic.error == "Error" || !string.IsNullOrEmpty(dic.error))
             {
                 message.Error = "Entry word not found";
             }
@@ -97,6 +97,37 @@ namespace Moordle.Controllers
             {
                 return string.Empty;
             }
+        }
+
+        private async Task<ResponseDicoLink> GetWord(string word)
+        {
+            var url = $@"https://api.dicolink.com/v1/mot/{word}"+"/definitions?limite=1&api_key=PFz6qrVmJRfueoxG27rA6BWNDwWSC2ER";
+
+            return await CallGetAPI2<ResponseDicoLink>(url);
+        }
+
+        private async Task<ResponseDicoLink> CallGetAPI2<T>(string url)
+        {
+            HttpClient client = new HttpClient();
+            var response = new ResponseDicoLink();
+            var responseMessage = await client.GetAsync(url);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var resp = await responseMessage.Content.ReadAsStringAsync();
+                if (!resp.Contains("pas de résultats"))
+                {
+                    return JsonConvert.DeserializeObject<List<ResponseDicoLink>>(resp).First();
+                }
+                else
+                {
+                    response.error = "Error";
+                }
+            }
+            else 
+            {
+                response.error = "Error";
+            }
+            return response;
         }
 
         private async Task<ResponseAPI> CallGetAPI<T>(string url)

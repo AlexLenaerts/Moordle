@@ -50,7 +50,7 @@ keys.forEach(key => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = key
     buttonElement.setAttribute('id', key)
-    buttonElement.addEventListener('click', () => handleClick(key))
+    buttonElement.addEventListener('click', () => handleClick(key,event))
     if (count <= 9) {
         const line1 = document.querySelector('.line-1')
         line1.append(buttonElement);
@@ -81,13 +81,14 @@ document.addEventListener('keydown',
         }
 }, true);
 
-const handleClick = (letter) => {
+const handleClick = (letter,event) => {
     if (!isGameOver) {
         if (letter == '8' || letter == '«') {
             deleteLetter()
             return
         }
-        if (letter == '13' || letter == 'ENTER') {
+        if ((letter == '13' || letter == 'ENTER') && (old_timestamp == null || old_timestamp + 1000 < event.timeStamp) ) {
+            old_timestamp = event.timeStamp;
             checkRow()
             return
         }

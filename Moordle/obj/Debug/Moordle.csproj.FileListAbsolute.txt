@@ -51,6 +51,7 @@ C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\roslyn\vbc.rsp
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\roslyn\VBCSCompiler.exe
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Antlr3.Runtime.dll
+C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Developpez.Dotnet.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Newtonsoft.Json.dll
@@ -62,6 +63,7 @@ C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\System.Web.WebPages.Deploym
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\System.Web.WebPages.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\System.Web.WebPages.Razor.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\WebGrease.dll
+C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Developpez.Dotnet.xml
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\System.Web.Helpers.xml
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\System.Web.Mvc.xml
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\System.Web.Optimization.xml
@@ -72,6 +74,7 @@ C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\System.Web.WebPages.Razor.x
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Newtonsoft.Json.xml
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Antlr3.Runtime.pdb
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\Developpez.Dotnet.resources.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\System.Web.Helpers.resources.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\System.Web.Mvc.resources.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\System.Web.Optimization.resources.dll
@@ -79,11 +82,8 @@ C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\System.Web.Razor.resourc
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\System.Web.WebPages.resources.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\System.Web.WebPages.Razor.resources.dll
+C:\Users\Alexandre\source\repos\Woordlee\Moordle\obj\Debug\Moordle.csproj.AssemblyReference.cache
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\obj\Debug\Moordle.csproj.CoreCompileInputs.cache
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\obj\Debug\Moordle.csproj.CopyComplete
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\obj\Debug\Moordle.dll
 C:\Users\Alexandre\source\repos\Woordlee\Moordle\obj\Debug\Moordle.pdb
-C:\Users\Alexandre\source\repos\Woordlee\Moordle\obj\Debug\Moordle.csproj.AssemblyReference.cache
-C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Developpez.Dotnet.dll
-C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\Developpez.Dotnet.xml
-C:\Users\Alexandre\source\repos\Woordlee\Moordle\bin\fr\Developpez.Dotnet.resources.dll

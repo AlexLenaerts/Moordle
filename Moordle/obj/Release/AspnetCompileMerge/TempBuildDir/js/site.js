@@ -7,10 +7,10 @@ let currenturl = window.location.origin + '/Home/'
 let definition
 
 const getWordle = () => {
-    fetch(currenturl+'Word')
+    fetch(currenturl + 'Word')
         .then(response => response.json())
         .then(json => {
-            wordle = json['RandomWord'].toUpperCase()
+            wordle = json['Random'].toUpperCase()
         })
         .catch(err => console.log(err))
 }
@@ -18,8 +18,8 @@ getWordle()
 
 
 const keys = [
-    'A','Z','E','R','T','Y','U','I','O','P',
-    'Q','S','D','F','G','H','J','K','L','M',
+    'A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+    'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
     'W', 'X', 'C', 'V', 'B', 'N', '«', 'ENTER'
 ]
 const guessRows = [
@@ -59,27 +59,22 @@ keys.forEach(key => {
         const line2 = document.querySelector('.line-2')
         line2.append(buttonElement);
     }
-    else
-    {
+    else {
         const line3 = document.querySelector('.line-3')
         line3.append(buttonElement);
     }
     count++
-    })
-
-
-
+})
 
 document.addEventListener('keydown',
     function (event) {
         if (event.keyCode == '8' || event.keyCode == '13') {
             handleClick(event.keyCode);
         }
-        else
-        {
+        else {
             handleClick(String.fromCharCode(event.keyCode))
         }
-}, true);
+    }, true);
 
 const handleClick = (letter) => {
     if (!isGameOver) {
@@ -115,12 +110,10 @@ const deleteLetter = () => {
     }
 }
 
-const checkRow = () =>
-{
+const checkRow = () => {
     const guess = guessRows[currentRow].join('')
-    if (currentTile > 4)
-    {
-            fetch(currenturl + `/check/?word=${guess}`)
+    if (currentTile > 4) {
+        fetch(currenturl + `/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
                 if (json['Error'] == 'Entry word not found') {
@@ -135,14 +128,32 @@ const checkRow = () =>
                 else {
                     flipTile()
                     if (wordle == guess) {
-                        showMessage('Bingo!')
-                        isGameOver = true
-                        if (confirm('New Game?')) {
-                            location.reload();
-                        }
+                        fetch(currenturl + `/definition/?word=${wordle.toLowerCase()}`)
+                            .then(response => response.json())
+                            .then(json => {
+                                var newLine = "\r\n";
+                                msg += newLine;
+                                var msg = "Le mot était: " + wordle;
+                                msg += newLine;
+                                msg += "Définition: " + json['Definition'];
+                                msg += newLine;
+                                msg += 'New Game?';
+                                isGameOver = true
+                                swal({
+                                    title: "Bingo !",
+                                    text: msg,
+                                    className: "title1",
+                                    buttons: true,
+                                    dangerMode: true,
+                                })
+                                    .then((willDelete) => {
+                                        if (willDelete) {
+                                            location.reload()
+                                        }
+                                    });
+                            })
                         return
-                    } else
-                    {
+                    } else {
                         if (currentRow >= 5) {
                             isGameOver = true
                             showMessage()
@@ -150,16 +161,23 @@ const checkRow = () =>
                                 .then(response => response.json())
                                 .then(json => {
                                     var newLine = "\r\n";
-                                    var msg = "Game Over !";
-                                    msg += newLine;
-                                    msg += "Le mot était: " + wordle;
+                                    var msg = "Le mot était: " + wordle;
                                     msg += newLine;
                                     msg += "Définition: " + json['Definition'];
                                     msg += newLine;
                                     msg += "Rejouez ?";
-                                    if (confirm(msg)) {
-                                        location.reload();
-                                    }
+                                    swal({
+                                        className: "title2",
+                                        title: "Game Over !",
+                                        text: msg,
+                                        buttons: true,
+                                        dangerMode: true,
+                                    })
+                                        .then((willDelete) => {
+                                            if (willDelete) {
+                                                location.reload()
+                                            }
+                                        });
                                 })
                             return
                         }
@@ -168,7 +186,7 @@ const checkRow = () =>
                             currentTile = 0
                         }
                     }
-                    
+
                 }
             }).catch(err => console.log(err))
     }
@@ -226,3 +244,11 @@ const flipTile = () => {
     })
 }
 
+function popup() {
+    let togg1 = document.getElementById("panel-fenetre");
+    if (togg1.style.display == "none" || togg1.style.display == "") {
+        togg1.style.display = "block";
+    } else if (togg1.style.display == "block") {
+        togg1.style.display = "none";
+    }
+}
