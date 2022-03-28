@@ -1,6 +1,45 @@
 ﻿<div class="game-container">
     <div class="title-container">
-        <h1>Moordle</h1>
+        <div class="header">
+            <div class="help">
+                <a href="#" onclick="popup()">
+                    <img src="~/Content/question_mark.png">
+                </a>
+            </div>
+            <h1>Moordle</h1>
+        </div>
+    </div>
+    <div id="panel-fenetre">
+        <div id="panel-fenetre-header">
+            <h2 id="panel-fenetre-titre">Règles du jeu</h2>
+            <div>
+                <a href="#" id="panel-fenetre-bouton-fermeture" onclick="popup()">
+                    <img src="~/Content/close-button.png">
+                </a>
+            </div>
+        </div>
+        <div>
+        </div>
+        <div id="panel-fenetre-notification">&nbsp;</div>
+        <div id="panel-fenetre-contenu">
+
+            <p>
+                Le but du jeu est de deviner un mot spécifique de cinq lettres en un maximum de six tentatives, en tapant des lettres sur un écran de six lignes de cinq cases chacune.
+                <br>
+                <br> La personne qui joue inscrit sur la première ligne un mot de cinq lettres de son choix et entre sa proposition.
+                <br>
+                <br> Après chaque proposition, les lettres apparaissent en couleurs :
+                <br>
+                <ul>
+                    <li>Le fond gris représente les lettres qui ne se trouvent pas dans le mot recherché;</li>
+                    <li>Le fond jaune représente les lettres qui se trouvent ailleurs dans le mot;</li>
+                    <li>Le fond vert représente les lettres qui se trouvent à la bonne place dans le mot à trouver.</li>
+                </ul>
+                <br><div id="conteneur-exemple"> <img id="exemple" src="~/Content/exemple.png"></div>
+                <br>
+                <br> <div id="copyright"> ©2022 - Alexandre Lenaerts </div>
+            </p>
+        </div>
     </div>
     <div class="message-container"></div>
     <div class="tile-container"></div>
@@ -10,6 +49,7 @@
         <div class="line-3"></div>
     </div>
 </div>
+
 
 
 

@@ -5,12 +5,12 @@ const messageDisplay = document.querySelector('.message-container')
 let wordle
 let currenturl = window.location.origin + '/Home/'
 let definition
-
+let old_timestamp = null
 const getWordle = () => {
-    fetch(currenturl + 'Word')
+    fetch(currenturl+'Word')
         .then(response => response.json())
         .then(json => {
-            wordle = json['Random'].toUpperCase()
+            wordle = json.toUpperCase()
         })
         .catch(err => console.log(err))
 }
@@ -18,10 +18,13 @@ getWordle()
 
 
 const keys = [
-    'A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
-    'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
+    'A','Z','E','R','T','Y','U','I','O','P',
+    'Q','S','D','F','G','H','J','K','L','M',
     'W', 'X', 'C', 'V', 'B', 'N', '«', 'ENTER'
 ]
+
+const FKeys = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'Escape']
+
 const guessRows = [
     ['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -50,7 +53,7 @@ keys.forEach(key => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = key
     buttonElement.setAttribute('id', key)
-    buttonElement.addEventListener('click', () => handleClick(key))
+    buttonElement.addEventListener('click', () => handleClick(key,event))
     if (count <= 9) {
         const line1 = document.querySelector('.line-1')
         line1.append(buttonElement);
@@ -59,34 +62,40 @@ keys.forEach(key => {
         const line2 = document.querySelector('.line-2')
         line2.append(buttonElement);
     }
-    else {
+    else
+    {
         const line3 = document.querySelector('.line-3')
         line3.append(buttonElement);
     }
     count++
-})
+    })
 
 document.addEventListener('keydown',
     function (event) {
         if (event.keyCode == '8' || event.keyCode == '13') {
-            handleClick(event.keyCode);
+            handleClick(event.keyCode,event);
         }
-        else {
-            handleClick(String.fromCharCode(event.keyCode))
+        else if (!FKeys.includes(event.code))
+        {
+            handleClick(String.fromCharCode(event.keyCode),event)
         }
-    }, true);
+}, true);
 
-const handleClick = (letter) => {
+const handleClick = (letter,event) => {
     if (!isGameOver) {
         if (letter == '8' || letter == '«') {
             deleteLetter()
             return
         }
-        if (letter == '13' || letter == 'ENTER') {
+        if ((letter == '13' || letter == 'ENTER') && (old_timestamp == null || old_timestamp + 1000 < event.timeStamp)) {
+            old_timestamp = event.timeStamp
             checkRow()
             return
         }
-        addLetter(letter)
+        if (letter != 'ENTER' && letter != '13')
+        {
+            addLetter(letter)
+        }
     }
 }
 
@@ -110,13 +119,15 @@ const deleteLetter = () => {
     }
 }
 
-const checkRow = () => {
+const checkRow = () =>
+{
     const guess = guessRows[currentRow].join('')
-    if (currentTile > 4) {
-        fetch(currenturl + `/check/?word=${guess}`)
+    if (currentTile > 4)
+    {
+            fetch(currenturl + `/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
-                if (json['Error'] == 'Entry word not found') {
+                if (json == null) {
                     showMessage('word not in list. Retry')
                     const x = document.getElementById('guessRow-' + currentRow).querySelectorAll(".tile")
                     x.forEach(element => element.textContent = '');
@@ -133,9 +144,9 @@ const checkRow = () => {
                             .then(json => {
                                 var newLine = "\r\n";
                                 msg += newLine;
-                                var msg = "Le mot était: " + wordle;
+                                var msg =  "Le mot était: " + wordle;
                                 msg += newLine;
-                                msg += "Définition: " + json['Definition'];
+                                msg += "Définition: " + json;
                                 msg += newLine;
                                 msg += 'New Game?';
                                 isGameOver = true
@@ -152,8 +163,9 @@ const checkRow = () => {
                                         }
                                     });
                             })
-                        return
-                    } else {
+                                return
+                    } else
+                    {
                         if (currentRow >= 5) {
                             isGameOver = true
                             showMessage()
@@ -163,7 +175,7 @@ const checkRow = () => {
                                     var newLine = "\r\n";
                                     var msg = "Le mot était: " + wordle;
                                     msg += newLine;
-                                    msg += "Définition: " + json['Definition'];
+                                    msg += "Définition: " + json;
                                     msg += newLine;
                                     msg += "Rejouez ?";
                                     swal({
@@ -186,7 +198,7 @@ const checkRow = () => {
                             currentTile = 0
                         }
                     }
-
+                    
                 }
             }).catch(err => console.log(err))
     }
@@ -246,9 +258,9 @@ const flipTile = () => {
 
 function popup() {
     let togg1 = document.getElementById("panel-fenetre");
-    if (togg1.style.display == "none" || togg1.style.display == "") {
+    if (togg1.style.display == "none" || togg1.style.display == "" ) {
         togg1.style.display = "block";
-    } else if (togg1.style.display == "block") {
+    } else if (togg1.style.display == "block"){
         togg1.style.display = "none";
     }
 }

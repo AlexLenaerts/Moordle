@@ -5,12 +5,12 @@ const messageDisplay = document.querySelector('.message-container')
 let wordle
 let currenturl = window.location.origin + '/Home/'
 let definition
-
+let old_timestamp = null
 const getWordle = () => {
     fetch(currenturl+'Word')
         .then(response => response.json())
         .then(json => {
-            wordle = json['RandomWord'].toUpperCase()
+            wordle = json.toUpperCase()
         })
         .catch(err => console.log(err))
 }
@@ -22,6 +22,9 @@ const keys = [
     'Q','S','D','F','G','H','J','K','L','M',
     'W', 'X', 'C', 'V', 'B', 'N', '«', 'ENTER'
 ]
+
+const FKeys = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'Escape']
+
 const guessRows = [
     ['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -67,17 +70,14 @@ keys.forEach(key => {
     count++
     })
 
-
-
-
 document.addEventListener('keydown',
     function (event) {
         if (event.keyCode == '8' || event.keyCode == '13') {
-            handleClick(event.keyCode);
+            handleClick(event.keyCode,event);
         }
-        else
+        else if (!FKeys.includes(event.code))
         {
-            handleClick(String.fromCharCode(event.keyCode))
+            handleClick(String.fromCharCode(event.keyCode),event)
         }
 }, true);
 
@@ -87,12 +87,15 @@ const handleClick = (letter,event) => {
             deleteLetter()
             return
         }
-        if ((letter == '13' || letter == 'ENTER') && (old_timestamp == null || old_timestamp + 1000 < event.timeStamp) ) {
-            old_timestamp = event.timeStamp;
+        if ((letter == '13' || letter == 'ENTER') && (old_timestamp == null || old_timestamp + 1000 < event.timeStamp)) {
+            old_timestamp = event.timeStamp
             checkRow()
             return
         }
-        addLetter(letter)
+        if (letter != 'ENTER' && letter != '13')
+        {
+            addLetter(letter)
+        }
     }
 }
 
@@ -124,7 +127,7 @@ const checkRow = () =>
             fetch(currenturl + `/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
-                if (json['Error'] == 'Entry word not found') {
+                if (json == null) {
                     showMessage('word not in list. Retry')
                     const x = document.getElementById('guessRow-' + currentRow).querySelectorAll(".tile")
                     x.forEach(element => element.textContent = '');
@@ -136,12 +139,31 @@ const checkRow = () =>
                 else {
                     flipTile()
                     if (wordle == guess) {
-                        showMessage('Bingo!')
-                        isGameOver = true
-                        if (confirm('New Game?')) {
-                            location.reload();
-                        }
-                        return
+                        fetch(currenturl + `/definition/?word=${wordle.toLowerCase()}`)
+                            .then(response => response.json())
+                            .then(json => {
+                                var newLine = "\r\n";
+                                msg += newLine;
+                                var msg =  "Le mot était: " + wordle;
+                                msg += newLine;
+                                msg += "Définition: " + json;
+                                msg += newLine;
+                                msg += 'New Game?';
+                                isGameOver = true
+                                swal({
+                                    title: "Bingo !",
+                                    text: msg,
+                                    className: "title1",
+                                    buttons: true,
+                                    dangerMode: true,
+                                })
+                                    .then((willDelete) => {
+                                        if (willDelete) {
+                                            location.reload()
+                                        }
+                                    });
+                            })
+                                return
                     } else
                     {
                         if (currentRow >= 5) {
@@ -151,16 +173,23 @@ const checkRow = () =>
                                 .then(response => response.json())
                                 .then(json => {
                                     var newLine = "\r\n";
-                                    var msg = "Game Over !";
+                                    var msg = "Le mot était: " + wordle;
                                     msg += newLine;
-                                    msg += "Le mot était: " + wordle;
-                                    msg += newLine;
-                                    msg += "Définition: " + json['Definition'];
+                                    msg += "Définition: " + json;
                                     msg += newLine;
                                     msg += "Rejouez ?";
-                                    if (confirm(msg)) {
-                                        location.reload();
-                                    }
+                                    swal({
+                                        className: "title2",
+                                        title: "Game Over !",
+                                        text: msg,
+                                        buttons: true,
+                                        dangerMode: true,
+                                    })
+                                        .then((willDelete) => {
+                                            if (willDelete) {
+                                                location.reload()
+                                            }
+                                        });
                                 })
                             return
                         }
@@ -227,3 +256,11 @@ const flipTile = () => {
     })
 }
 
+function popup() {
+    let togg1 = document.getElementById("panel-fenetre");
+    if (togg1.style.display == "none" || togg1.style.display == "" ) {
+        togg1.style.display = "block";
+    } else if (togg1.style.display == "block"){
+        togg1.style.display = "none";
+    }
+}

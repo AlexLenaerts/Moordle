@@ -7,6 +7,7 @@ namespace Moordle.Controllers
 {
     public class RandomWord
     {
-        public string Random { get; set; }
+            public string mot { get; set; }
+            public string dicolinkUrl { get; set; }
     }
 }

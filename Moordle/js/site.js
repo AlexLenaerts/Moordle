@@ -10,7 +10,7 @@ const getWordle = () => {
     fetch(currenturl+'Word')
         .then(response => response.json())
         .then(json => {
-            wordle = json['Random'].toUpperCase()
+            wordle = json.toUpperCase()
         })
         .catch(err => console.log(err))
 }
@@ -22,6 +22,9 @@ const keys = [
     'Q','S','D','F','G','H','J','K','L','M',
     'W', 'X', 'C', 'V', 'B', 'N', '«', 'ENTER'
 ]
+
+const FKeys = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'Escape']
+
 const guessRows = [
     ['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -72,7 +75,7 @@ document.addEventListener('keydown',
         if (event.keyCode == '8' || event.keyCode == '13') {
             handleClick(event.keyCode,event);
         }
-        else
+        else if (!FKeys.includes(event.code))
         {
             handleClick(String.fromCharCode(event.keyCode),event)
         }
@@ -89,7 +92,8 @@ const handleClick = (letter,event) => {
             checkRow()
             return
         }
-        if (letter != 'ENTER' && letter != '13') {
+        if (letter != 'ENTER' && letter != '13')
+        {
             addLetter(letter)
         }
     }
@@ -123,7 +127,7 @@ const checkRow = () =>
             fetch(currenturl + `/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
-                if (json['Error'] == 'Entry word not found') {
+                if (json == null) {
                     showMessage('word not in list. Retry')
                     const x = document.getElementById('guessRow-' + currentRow).querySelectorAll(".tile")
                     x.forEach(element => element.textContent = '');
@@ -142,7 +146,7 @@ const checkRow = () =>
                                 msg += newLine;
                                 var msg =  "Le mot était: " + wordle;
                                 msg += newLine;
-                                msg += "Définition: " + json['Definition'];
+                                msg += "Définition: " + json;
                                 msg += newLine;
                                 msg += 'New Game?';
                                 isGameOver = true
@@ -171,7 +175,7 @@ const checkRow = () =>
                                     var newLine = "\r\n";
                                     var msg = "Le mot était: " + wordle;
                                     msg += newLine;
-                                    msg += "Définition: " + json['Definition'];
+                                    msg += "Définition: " + json;
                                     msg += newLine;
                                     msg += "Rejouez ?";
                                     swal({
