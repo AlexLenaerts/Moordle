@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Developpez.Dotnet;
 using Newtonsoft.Json;
 
 
@@ -20,7 +21,7 @@ namespace Moordle.Controllers
         public async Task<ActionResult> Word()
         {
             RandomWord word = await CreateRandomWord(5);
-            WriteHttp(word.mot);
+            WriteHttp(word.mot.RemoveDiacritics());
             return View(Index());
         }
 
