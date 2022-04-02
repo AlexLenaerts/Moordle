@@ -148,7 +148,7 @@ const checkRow = () =>
                                 msg += newLine;
                                 msg += "Définition: " + json;
                                 msg += newLine;
-                                msg += 'New Game?';
+                                msg += "Rejouez ?";
                                 isGameOver = true
                                 swal({
                                     title: "Bingo !",

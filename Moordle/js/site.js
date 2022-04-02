@@ -264,3 +264,47 @@ function popup() {
         togg1.style.display = "none";
     }
 }
+
+function darkMode() {
+    let togg1 = document.getElementById("darkMode_on");
+    let title = document.getElementById("title").getElementsByTagName("h1")[0];
+    let darkMode_on = document.querySelectorAll('[id=darkMode_on]');
+    let darkMode_off = document.querySelectorAll('[id=darkMode_off]');
+    let body = document.getElementsByTagName("body")[0];
+    let helpWindows = document.getElementById("panel-fenetre");
+
+    if (togg1.style.display == "" || togg1.style.display == "block") {
+        darkMode_on.forEach(element => element.style.display = "none");
+        darkMode_off.forEach(element => element.style.display = "block");
+        title.style.color = "black";
+        body.style.backgroundColor = "white";
+        helpWindows.style.backgroundColor = "black";
+        document.getElementById("panel-fenetre-header").style.color = "white";
+        document.getElementById("panel-fenetre-header").style.borderBottomColor = "white";
+        document.getElementById("panel-fenetre-contenu").getElementsByTagName("p")[0].style.color = "white";
+        document.getElementById("panel-fenetre-contenu").getElementsByTagName("ul")[0].style.color = "white";
+        document.querySelectorAll("li").forEach(element => element.style.color = "white");
+        document.getElementById("copyright").style.color = "white";
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "black");
+        document.querySelectorAll("button").forEach(element => element.style.color = "black");
+        document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#d3d6da");
+
+    } else if (togg1.style.display == "none") {
+        darkMode_on.forEach(element => element.style.display = "block");
+        darkMode_off.forEach(element => element.style.display = "none");
+        title.style.color = "white";
+        body.style.backgroundColor = "black";
+        helpWindows.style.backgroundColor = "white";
+        document.getElementById("panel-fenetre-header").style.color = "black";
+        document.getElementById("panel-fenetre-header").style.borderBottomColor = "black";
+        document.getElementById("panel-fenetre-contenu").getElementsByTagName("p")[0].style.color = "black";
+        document.querySelectorAll("li").forEach(element => element.style.color = "black");
+        document.getElementById("copyright").style.color = "black";
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "white");
+        document.querySelectorAll("button").forEach(element => element.style.color = "white"); 
+        document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#818384");
+
+
+    }
+}
+

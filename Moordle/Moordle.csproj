@@ -135,6 +135,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\dark_mode_off.png" />
+    <Content Include="Content\dark_mode_on.png" />
     <Content Include="Content\question_mark.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
