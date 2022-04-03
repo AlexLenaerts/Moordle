@@ -2,11 +2,32 @@
     <div class="title-container">
         <div class="header">
             <div class="help">
-                <a href="#" onclick="popup()">
-                    <img src="~/Content/question_mark.png">
-                </a>
+                <div id="darkMode_on">
+                    <a href="#" onclick="popup()">
+                        <img src="~/Content/question_mark.png">
+                    </a>
+                </div>
+                <div id="darkMode_off">
+                    <a href="#" onclick="popup()">
+                        <img src="~/Content/question_mark_off.png">
+                    </a>
+                </div>
             </div>
-            <h1>Moordle</h1>
+            <div id="title">
+                <h1>Moordle</h1>
+            </div>
+            <div class="darkMode">
+                <div id="darkMode_on">
+                    <a href="#" onclick="darkMode()">
+                        <img src="~/Content/dark_mode_on.png">
+                    </a>
+                </div>
+                <div id="darkMode_off">
+                    <a href="#" onclick="darkMode()">
+                        <img src="~/Content/dark_mode_off.png">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div id="panel-fenetre">

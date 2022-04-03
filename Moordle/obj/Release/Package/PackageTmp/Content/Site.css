@@ -66,8 +66,6 @@ body {
     display: flex;
     align-items: center;
     background-color: #818384;
-    /* justify-content: center; */
-    /* font-family: monospace; */
 }
 
 .tile-container div {
@@ -152,15 +150,36 @@ center > a {
 }
 
 .help {
-    display: flex;
+    display: block;
 }
 
     .help img {
-        width: 60px;
+        width: 50px;
         height: 100%;
-        background-color: #12121300;
     }
 
+
+.darkMode {
+    display: block;
+}
+
+    .darkMode img {
+        width: 60px;
+        height: 100%;
+    }
+
+div#darkMode_off {
+    display: none;
+}
+
+div#darkMode_on {
+    display: block;
+}
+
+#title h1{
+    color:white;
+}
+    
 .header {
     text-align: center;
     width: 100%;
@@ -184,6 +203,7 @@ center > a {
     padding: 0.5em;
     overflow-y: auto;
     display: none;
+    background:black;
 }
 
 a #panel-fenetre-bouton-fermeture-icone {
@@ -225,7 +245,7 @@ img#exemple {
 
 
 #copyright {
-    color: yellow;
+    color: white;
     text-align: center;
     margin: 0px auto;
 }

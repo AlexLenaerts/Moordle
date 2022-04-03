@@ -16,6 +16,11 @@ const getWordle = () => {
 }
 getWordle()
 
+document.addEventListener("DOMContentLoaded", function (event) {
+    document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
+    document.querySelectorAll('[id^="button-"][id*="overlay"]').forEach(el => el.style.color = "white");
+    document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.fontweight = "bold");
+});
 
 const keys = [
     'A','Z','E','R','T','Y','U','I','O','P',
@@ -119,6 +124,18 @@ const deleteLetter = () => {
     }
 }
 
+function DarkModeAlert() {
+    let togg1 = document.getElementById("darkMode_on");
+    if (togg1.style.display == "" || togg1.style.display == "block") {
+        document.getElementsByClassName("swal-modal")[0].style.backgroundColor = "black";
+        document.getElementsByClassName("swal-text")[0].style.color = "white";
+    }
+    else if (togg1.style.display == "none") {
+        document.getElementsByClassName("swal-modal")[0].style.backgroundColor = "white";
+        document.getElementsByClassName("swal-text")[0].style.color = "black";
+    }
+}
+
 const checkRow = () =>
 {
     const guess = guessRows[currentRow].join('')
@@ -156,7 +173,8 @@ const checkRow = () =>
                                     className: "title1",
                                     buttons: true,
                                     dangerMode: true,
-                                })
+                                });
+                                DarkModeAlert()
                                     .then((willDelete) => {
                                         if (willDelete) {
                                             location.reload()
@@ -184,7 +202,8 @@ const checkRow = () =>
                                         text: msg,
                                         buttons: true,
                                         dangerMode: true,
-                                    })
+                                    });
+                                    DarkModeAlert()
                                         .then((willDelete) => {
                                             if (willDelete) {
                                                 location.reload()
@@ -225,6 +244,8 @@ const addColorToKey = (keyLetter, color) => {
 }
 
 const flipTile = () => {
+    document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
+    document.querySelectorAll('[class*= "overlay"]').forEach(el => el.style.color = "white");
     const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
     let checkWordle = wordle
     const guess = []
@@ -232,6 +253,7 @@ const flipTile = () => {
     rowTiles.forEach(tile => {
         guess.push({ letter: tile.getAttribute('data'), color: 'grey-overlay' })
     })
+    rowTiles.forEach(tile => tile.style.color = 'white')
 
     guess.forEach((guess, index) => {
         if (guess.letter == wordle[index]) {
@@ -264,3 +286,48 @@ function popup() {
         togg1.style.display = "none";
     }
 }
+
+function darkMode() {
+    let togg1 = document.getElementById("darkMode_on");
+    let title = document.getElementById("title").getElementsByTagName("h1")[0];
+    let darkMode_on = document.querySelectorAll('[id=darkMode_on]');
+    let darkMode_off = document.querySelectorAll('[id=darkMode_off]');
+    let body = document.getElementsByTagName("body")[0];
+    let helpWindows = document.getElementById("panel-fenetre");
+    if (togg1.style.display == "" || togg1.style.display == "block") {
+        darkMode_on.forEach(element => element.style.display = "none");
+        darkMode_off.forEach(element => element.style.display = "block");
+        title.style.color = "black";
+        body.style.backgroundColor = "white";
+        helpWindows.style.backgroundColor = "white";
+        helpWindows.style.borderColor = "black";
+        document.getElementById("panel-fenetre-header").style.color = "black";
+        document.getElementById("panel-fenetre-header").style.borderBottomColor = "black";
+        document.getElementById("panel-fenetre-contenu").getElementsByTagName("p")[0].style.color = "black";
+        document.getElementById("panel-fenetre-contenu").getElementsByTagName("ul")[0].style.color = "black";
+        document.querySelectorAll("li").forEach(element => element.style.color = "black");
+        document.getElementById("copyright").style.color = "black";
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "black");
+        document.querySelectorAll("button").forEach(element => element.style.color = "black");
+        document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#d3d6da");
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
+        
+    } else if (togg1.style.display == "none") {
+        darkMode_on.forEach(element => element.style.display = "block");
+        darkMode_off.forEach(element => element.style.display = "none");
+        title.style.color = "white";
+        body.style.backgroundColor = "black";
+        helpWindows.style.backgroundColor = "black";
+        helpWindows.style.borderColor = "white";
+        document.getElementById("panel-fenetre-header").style.color = "white";
+        document.getElementById("panel-fenetre-header").style.borderBottomColor = "white";
+        document.getElementById("panel-fenetre-contenu").getElementsByTagName("p")[0].style.color = "white";
+        document.querySelectorAll("li").forEach(element => element.style.color = "white");
+        document.getElementById("copyright").style.color = "white";
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "white");
+        document.querySelectorAll("button").forEach(element => element.style.color = "white"); 
+        document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#818384");
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
+    }
+}
+
