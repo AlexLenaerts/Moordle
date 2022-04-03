@@ -18,9 +18,10 @@ getWordle()
 
 document.addEventListener("DOMContentLoaded", function (event) {
     document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
-    document.querySelectorAll('[id^="button-"][id*="overlay"]').forEach(el => el.style.color = "white");
-    document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.fontweight = "bold");
+    document.querySelectorAll('[class*= "overlay"]').forEach(el => el.style.color = "white");
+    document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.fontweight = "bolder");
 });
+
 
 const keys = [
     'A','Z','E','R','T','Y','U','I','O','P',
@@ -241,11 +242,10 @@ const showLongMessage = (message) => {
 const addColorToKey = (keyLetter, color) => {
     const key = document.getElementById(keyLetter)
     key.classList.add(color)
+    document.querySelectorAll('[class*= "overlay"]').forEach(el => el.style.color = "white");
 }
 
 const flipTile = () => {
-    document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
-    document.querySelectorAll('[class*= "overlay"]').forEach(el => el.style.color = "white");
     const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
     let checkWordle = wordle
     const guess = []
@@ -253,6 +253,7 @@ const flipTile = () => {
     rowTiles.forEach(tile => {
         guess.push({ letter: tile.getAttribute('data'), color: 'grey-overlay' })
     })
+
     rowTiles.forEach(tile => tile.style.color = 'white')
 
     guess.forEach((guess, index) => {
@@ -294,6 +295,8 @@ function darkMode() {
     let darkMode_off = document.querySelectorAll('[id=darkMode_off]');
     let body = document.getElementsByTagName("body")[0];
     let helpWindows = document.getElementById("panel-fenetre");
+
+
     if (togg1.style.display == "" || togg1.style.display == "block") {
         darkMode_on.forEach(element => element.style.display = "none");
         darkMode_off.forEach(element => element.style.display = "block");
@@ -307,10 +310,9 @@ function darkMode() {
         document.getElementById("panel-fenetre-contenu").getElementsByTagName("ul")[0].style.color = "black";
         document.querySelectorAll("li").forEach(element => element.style.color = "black");
         document.getElementById("copyright").style.color = "black";
-        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "black");
         document.querySelectorAll("button").forEach(element => element.style.color = "black");
         document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#d3d6da");
-        document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "black")
         
     } else if (togg1.style.display == "none") {
         darkMode_on.forEach(element => element.style.display = "block");
@@ -324,10 +326,13 @@ function darkMode() {
         document.getElementById("panel-fenetre-contenu").getElementsByTagName("p")[0].style.color = "white";
         document.querySelectorAll("li").forEach(element => element.style.color = "white");
         document.getElementById("copyright").style.color = "white";
-        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "white");
         document.querySelectorAll("button").forEach(element => element.style.color = "white"); 
         document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#818384");
-        document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
+        document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "white")
     }
+    document.querySelectorAll('[id^="guessRow-"][id*="tile"][class*="flip"]').forEach(el => el.style.color = "white");
+    document.querySelectorAll('[class*= "overlay"]').forEach(el => el.style.color = "white");
+    document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.fontweight = "bolder");
+
 }
 

@@ -28,6 +28,8 @@ body {
 .tile-container {
     width: 330px;
     margin-bottom: 10px;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 28px;
 }
 
 .line-1 {
@@ -276,3 +278,4 @@ img#exemple {
 .swal-text {
     color: white
 }
+

@@ -242,10 +242,12 @@ const showLongMessage = (message) => {
 const addColorToKey = (keyLetter, color) => {
     const key = document.getElementById(keyLetter)
     key.classList.add(color)
+    document.querySelectorAll('[class*= "overlay"]').forEach(el => el.style.color = "white");
 }
 
 const flipTile = () => {
     const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
+
     let checkWordle = wordle
     const guess = []
 
@@ -268,7 +270,6 @@ const flipTile = () => {
             checkWordle = checkWordle.replace(guess.letter, '')
         }
     })
-
     rowTiles.forEach((tile, index) => {
         setTimeout(() => {
             tile.classList.add('flip')
