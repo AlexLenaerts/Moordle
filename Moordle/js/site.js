@@ -174,8 +174,8 @@ const checkRow = () =>
                                     className: "title1",
                                     buttons: true,
                                     dangerMode: true,
-                                });
-                                DarkModeAlert()
+                                })
+                                    .then(DarkModeAlert())
                                     .then((willDelete) => {
                                         if (willDelete) {
                                             location.reload()
@@ -203,9 +203,9 @@ const checkRow = () =>
                                         text: msg,
                                         buttons: true,
                                         dangerMode: true,
-                                    });
-                                    DarkModeAlert()
-                                        .then((willDelete) => {
+                                    })
+                                    .then(DarkModeAlert())
+                                    .then((willDelete) => {
                                             if (willDelete) {
                                                 location.reload()
                                             }
