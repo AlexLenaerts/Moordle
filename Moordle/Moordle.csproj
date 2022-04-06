@@ -145,6 +145,8 @@
     <Content Include="Content\close-button.png" />
     <Content Include="Content\exemple.png" />
     <Content Include="Content\question_mark_off.png" />
+    <Content Include="Content\stats_dark.png" />
+    <Content Include="Content\stats_white.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

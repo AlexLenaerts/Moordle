@@ -2,12 +2,34 @@ const tileDisplay = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
 const messageDisplay = document.querySelector('.message-container')
 
+let played = 0;
+let win = 0;
+let currentStreak = 0;
+let MaxStreak = 0;
+let ratio = 0
+
 let wordle
 let currenturl = window.location.origin + '/Home/'
 let definition
 let old_timestamp = null
+
+
+if (localStorage.getItem("played") !== null) {
+    played = parseInt(localStorage['played'])
+    win = parseInt(localStorage['Win'])
+    currentStreak = parseInt(localStorage['currentStreak'])
+    MaxStreak = parseInt(localStorage['MaxStreak'])
+    if (played> 1){
+        ratio = localStorage['ratio']
+    }
+}
+document.getElementById('played').innerHTML = played
+document.getElementById('currentStreak').innerHTML = currentStreak
+document.getElementById('MaxStreak').innerHTML = MaxStreak
+document.getElementById('ratio').innerHTML = ratio
+
 const getWordle = () => {
-    fetch(currenturl+'Word')
+    fetch(currenturl + 'Word')
         .then(response => response.json())
         .then(json => {
             wordle = json.toUpperCase()
@@ -24,8 +46,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 const keys = [
-    'A','Z','E','R','T','Y','U','I','O','P',
-    'Q','S','D','F','G','H','J','K','L','M',
+    'A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+    'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
     'W', 'X', 'C', 'V', 'B', 'N', '«', 'ENTER'
 ]
 
@@ -59,7 +81,7 @@ keys.forEach(key => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = key
     buttonElement.setAttribute('id', key)
-    buttonElement.addEventListener('click', () => handleClick(key,event))
+    buttonElement.addEventListener('click', () => handleClick(key, event))
     if (count <= 9) {
         const line1 = document.querySelector('.line-1')
         line1.append(buttonElement);
@@ -68,26 +90,24 @@ keys.forEach(key => {
         const line2 = document.querySelector('.line-2')
         line2.append(buttonElement);
     }
-    else
-    {
+    else {
         const line3 = document.querySelector('.line-3')
         line3.append(buttonElement);
     }
     count++
-    })
+})
 
 document.addEventListener('keydown',
     function (event) {
         if (event.keyCode == '8' || event.keyCode == '13') {
-            handleClick(event.keyCode,event);
+            handleClick(event.keyCode, event);
         }
-        else if (!FKeys.includes(event.code))
-        {
-            handleClick(String.fromCharCode(event.keyCode),event)
+        else if (!FKeys.includes(event.code)) {
+            handleClick(String.fromCharCode(event.keyCode), event)
         }
-}, true);
+    }, true);
 
-const handleClick = (letter,event) => {
+const handleClick = (letter, event) => {
     if (!isGameOver) {
         if (letter == '8' || letter == '«') {
             deleteLetter()
@@ -98,8 +118,7 @@ const handleClick = (letter,event) => {
             checkRow()
             return
         }
-        if (letter != 'ENTER' && letter != '13')
-        {
+        if (letter != 'ENTER' && letter != '13') {
             addLetter(letter)
         }
     }
@@ -137,12 +156,10 @@ function DarkModeAlert() {
     }
 }
 
-const checkRow = () =>
-{
+const checkRow = () => {
     const guess = guessRows[currentRow].join('')
-    if (currentTile > 4)
-    {
-            fetch(currenturl + `/check/?word=${guess}`)
+    if (currentTile > 4) {
+        fetch(currenturl + `/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
                 if (json == null) {
@@ -162,12 +179,13 @@ const checkRow = () =>
                             .then(json => {
                                 var newLine = "\r\n";
                                 msg += newLine;
-                                var msg =  "Le mot était: " + wordle;
+                                var msg = "Le mot était: " + wordle;
                                 msg += newLine;
                                 msg += "Définition: " + json;
                                 msg += newLine;
                                 msg += "Rejouez ?";
                                 isGameOver = true
+                                Victory(isGameOver)
                                 swal({
                                     title: "Bingo !",
                                     text: msg,
@@ -182,15 +200,15 @@ const checkRow = () =>
                                         }
                                     });
                             })
-                                return
-                    } else
-                    {
+                        return
+                    } else {
                         if (currentRow >= 5) {
                             isGameOver = true
                             showMessage()
                             fetch(currenturl + `/definition/?word=${wordle.toLowerCase()}`)
                                 .then(response => response.json())
                                 .then(json => {
+                                    Victory(!isGameOver)
                                     var newLine = "\r\n";
                                     var msg = "Le mot était: " + wordle;
                                     msg += newLine;
@@ -204,8 +222,8 @@ const checkRow = () =>
                                         buttons: true,
                                         dangerMode: true,
                                     })
-                                    .then(DarkModeAlert())
-                                    .then((willDelete) => {
+                                        .then(DarkModeAlert())
+                                        .then((willDelete) => {
                                             if (willDelete) {
                                                 location.reload()
                                             }
@@ -218,7 +236,7 @@ const checkRow = () =>
                             currentTile = 0
                         }
                     }
-                    
+
                 }
             }).catch(err => console.log(err))
     }
@@ -281,12 +299,26 @@ const flipTile = () => {
 
 function popup() {
     let togg1 = document.getElementById("panel-fenetre");
-    if (togg1.style.display == "none" || togg1.style.display == "" ) {
+    document.getElementById("panel-fenetre2").style.display = "none";
+
+    if (togg1.style.display == "none" || togg1.style.display == "") {
         togg1.style.display = "block";
-    } else if (togg1.style.display == "block"){
+    } else if (togg1.style.display == "block") {
         togg1.style.display = "none";
     }
 }
+
+function stats() {
+    document.getElementById("panel-fenetre").style.display = "none";
+
+    let togg1 = document.getElementById("panel-fenetre2");
+    if (togg1.style.display == "none" || togg1.style.display == "") {
+        togg1.style.display = "block";
+    } else if (togg1.style.display == "block") {
+        togg1.style.display = "none";
+    }
+}
+
 
 function darkMode() {
     let togg1 = document.getElementById("darkMode_on");
@@ -295,6 +327,7 @@ function darkMode() {
     let darkMode_off = document.querySelectorAll('[id=darkMode_off]');
     let body = document.getElementsByTagName("body")[0];
     let helpWindows = document.getElementById("panel-fenetre");
+    let statsWindows = document.getElementById("panel-fenetre2");
 
 
     if (togg1.style.display == "" || togg1.style.display == "block") {
@@ -304,16 +337,27 @@ function darkMode() {
         body.style.backgroundColor = "white";
         helpWindows.style.backgroundColor = "white";
         helpWindows.style.borderColor = "black";
+        statsWindows.style.backgroundColor = "white";
+        statsWindows.style.borderColor = "black";
         document.getElementById("panel-fenetre-header").style.color = "black";
         document.getElementById("panel-fenetre-header").style.borderBottomColor = "black";
+        document.getElementById("panel-fenetre-header2").style.color = "black";
+        document.getElementById("panel-fenetre-header2").style.borderBottomColor = "black";
         document.getElementById("panel-fenetre-contenu").getElementsByTagName("p")[0].style.color = "black";
         document.getElementById("panel-fenetre-contenu").getElementsByTagName("ul")[0].style.color = "black";
         document.querySelectorAll("li").forEach(element => element.style.color = "black");
+        document.getElementById("panel-fenetre-contenu2").getElementsByTagName("p")[0].style.color = "black";
         document.getElementById("copyright").style.color = "black";
+        document.getElementById("copyright2").style.color = "black";
+        document.querySelectorAll('[id="f"]').forEach(element => element.style.color = "black");
+        document.querySelectorAll('[id="ratio"]').forEach(element => element.style.color = "black");
+        document.querySelectorAll('[id="played"]').forEach(element => element.style.color = "black");
+        document.querySelectorAll('[id="currentStreak"]').forEach(element => element.style.color = "black");
+        document.querySelectorAll('[id="MaxStreak"]').forEach(element => element.style.color = "black");
         document.querySelectorAll("button").forEach(element => element.style.color = "black");
         document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#d3d6da");
         document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "black")
-        
+
     } else if (togg1.style.display == "none") {
         darkMode_on.forEach(element => element.style.display = "block");
         darkMode_off.forEach(element => element.style.display = "none");
@@ -321,12 +365,24 @@ function darkMode() {
         body.style.backgroundColor = "black";
         helpWindows.style.backgroundColor = "black";
         helpWindows.style.borderColor = "white";
+        statsWindows.style.backgroundColor = "black";
+        statsWindows.style.borderColor = "white";
         document.getElementById("panel-fenetre-header").style.color = "white";
         document.getElementById("panel-fenetre-header").style.borderBottomColor = "white";
+        document.getElementById("panel-fenetre-header2").style.color = "white";
+        document.getElementById("panel-fenetre-header2").style.borderBottomColor = "white";
         document.getElementById("panel-fenetre-contenu").getElementsByTagName("p")[0].style.color = "white";
+        document.getElementById("panel-fenetre-contenu2").getElementsByTagName("p")[0].style.color = "white";
         document.querySelectorAll("li").forEach(element => element.style.color = "white");
         document.getElementById("copyright").style.color = "white";
-        document.querySelectorAll("button").forEach(element => element.style.color = "white"); 
+        document.getElementById("copyright2").style.color = "white";
+        document.querySelectorAll('[id="f"]').forEach(element => element.style.color = "white");
+        document.querySelectorAll('[id="ratio"]').forEach(element => element.style.color = "white");
+        document.querySelectorAll('[id="played"]').forEach(element => element.style.color = "white");
+        document.querySelectorAll('[id="currentStreak"]').forEach(element => element.style.color = "white");
+        document.querySelectorAll('[id="MaxStreak"]').forEach(element => element.style.color = "white");
+
+        document.querySelectorAll("button").forEach(element => element.style.color = "white");
         document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#818384");
         document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "white")
     }
@@ -336,3 +392,32 @@ function darkMode() {
 
 }
 
+function Victory(isGameOver) {
+    //win plusieurs fois
+    if (isGameOver && played >= 1)
+    {
+        win = win + 1
+        if (currentStreak >= MaxStreak) {
+            localStorage['MaxStreak'] = currentStreak + 1
+        }
+        localStorage['currentStreak'] = currentStreak + 1
+        
+        
+    }
+    //win première partie 
+    else if (isGameOver && played == 0 )
+    {
+        win = win + 1
+        localStorage['currentStreak'] = currentStreak + 1
+        localStorage['MaxStreak'] = MaxStreak + 1
+    }
+    //compteur à zero 
+    else if (!isGameOver)
+    {
+        localStorage['currentStreak'] = 0
+    }
+    played = played + 1
+    localStorage['played'] = played
+    localStorage['Win'] = win
+    localStorage['ratio'] = ((win / played) * 100).toFixed(2)
+}

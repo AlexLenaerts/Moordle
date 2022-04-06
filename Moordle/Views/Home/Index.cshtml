@@ -13,6 +13,18 @@
                     </a>
                 </div>
             </div>
+            <div class="stats">
+                <div id="darkMode_on">
+                    <a href="#" onclick="stats()">
+                        <img src="~/Content/stats_dark.png">
+                    </a>
+                </div>
+                <div id="darkMode_off">
+                    <a href="#" onclick="stats()">
+                        <img src="~/Content/stats_white.jpg">
+                    </a>
+                </div>
+            </div>
             <div id="title">
                 <h1>Moordle</h1>
             </div>
@@ -59,6 +71,48 @@
                 <br><div id="conteneur-exemple"> <img id="exemple" src="~/Content/exemple.png"></div>
                 <br>
                 <br> <div id="copyright"> ©2022 - Alexandre Lenaerts </div>
+            </p>
+        </div>
+    </div>
+
+    <div id="panel-fenetre2">
+        <div id="panel-fenetre-header2">
+            <h2 id="panel-fenetre-titre">Statistiques</h2>
+            <div>
+                <a href="#" id="panel-fenetre-bouton-fermeture2" onclick="stats()">
+                    <img src="~/Content/close-button.png">
+                </a>
+            </div>
+        </div>
+        <div>
+        </div>
+        <div id="panel-fenetre-notification2">&nbsp;</div>
+        <div id="panel-fenetre-contenu2">
+
+            <p>
+                <center>
+                    <table class="tg">
+                        <thead>
+                            <tr>
+                                <th class="tg-0lax" id="f">Parties</th>
+                                <th class="tg-0lax" id="f">Victoires[%]</th>
+                                <th class="tg-0lax" id="f">Série actuelle</th>
+                                <th class="tg-0lax" id="f">Meilleure Série</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tg-0lax" id="played"></td>
+                                <td class="tg-0lax" id="ratio"></td>
+                                <td class="tg-0lax" id="currentStreak"></td>
+                                <td class="tg-0lax" id="MaxStreak"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+                <br>
+
+                <br> <div id="copyright2"> ©2022 - Alexandre Lenaerts </div>
             </p>
         </div>
     </div>
