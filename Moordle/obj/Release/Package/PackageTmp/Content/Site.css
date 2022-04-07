@@ -170,6 +170,16 @@ center > a {
         height: 100%;
     }
 
+.stats {
+    display: block;
+}
+
+    .stats img {
+        width: 50px;
+        height: 100%;
+    }
+
+    
 div#darkMode_off {
     display: none;
 }
@@ -181,13 +191,13 @@ div#darkMode_on {
 #title h1{
     color:white;
 }
-    
+
 .header {
     text-align: center;
     width: 100%;
     border-bottom: solid 1px #3a3a3c;
     display: grid;
-    grid-template-columns: 2fr 6fr 2fr;
+    grid-template-columns: 0.5fr 0.5fr 6fr 1fr;
     align-items: center;
     border-bottom: 1px solid white;
 }
@@ -208,12 +218,47 @@ div#darkMode_on {
     background:black;
 }
 
+#panel-fenetre2 {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 300px;
+    border: 1px solid;
+    border-radius: 0.25em;
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    overflow-y: auto;
+    display: none;
+    background: black;
+}
+
 a #panel-fenetre-bouton-fermeture-icone {
     width: 32px;
     height: 32px;
 }
 
+a #panel-fenetre-bouton-fermeture-icone2 {
+    width: 32px;
+    height: 32px;
+}
+
+
 #panel-fenetre-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    width: calc(100% - 1em);
+    height: calc(36px + 0.75em);
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: 0.25em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid white;
+}
+
+#panel-fenetre-header2 {
     display: flex;
     align-content: center;
     justify-content: space-between;
@@ -231,7 +276,16 @@ a#panel-fenetre-bouton-fermeture img {
     height: 32px;
 }
 
+a#panel-fenetre-bouton-fermeture2 img {
+    width: 32px;
+    height: 32px;
+}
+
 h2#panel-fenetre-titre {
+    text-align: center;
+    margin: 0px auto;
+}
+h2#panel-fenetre-titre2 {
     text-align: center;
     margin: 0px auto;
 }
@@ -247,6 +301,12 @@ img#exemple {
 
 
 #copyright {
+    color: white;
+    text-align: center;
+    margin: 0px auto;
+}
+
+#copyright2 {
     color: white;
     text-align: center;
     margin: 0px auto;
@@ -279,3 +339,40 @@ img#exemple {
     color: white
 }
 
+.tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg .tg-baqh {
+        text-align: center;
+        vertical-align: top
+    }
+
+    .tg .tg-0lax {
+        text-align: center;
+        vertical-align: top
+    }
