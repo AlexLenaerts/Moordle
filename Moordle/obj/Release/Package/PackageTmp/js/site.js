@@ -156,6 +156,9 @@ function DarkModeAlert() {
     }
 }
 
+var link = document.createElement("div");
+link.innerHTML = '<a onclick="setShareLinks()">Share score on Twitter</a>'
+
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')
     if (currentTile > 4) {
@@ -188,6 +191,7 @@ const checkRow = () => {
                                 Victory(isGameOver)
                                 swal({
                                     title: "Bingo !",
+                                    content: link,
                                     text: msg,
                                     className: "title1",
                                     buttons: true,
@@ -215,6 +219,7 @@ const checkRow = () => {
                                     msg += "Définition: " + json;
                                     msg += newLine;
                                     msg += "Rejouez ?";
+                                    msg += 
                                     swal({
                                         className: "title2",
                                         title: "Game Over !",
@@ -350,6 +355,10 @@ function darkMode() {
         document.getElementById("copyright").style.color = "black";
         document.getElementById("copyright2").style.color = "black";
         document.querySelectorAll('[id="f"]').forEach(element => element.style.color = "black");
+        document.querySelectorAll('[id="f"]').forEach(element => element.style.borderColor = "white");
+        document.querySelectorAll('[id="ratio"]').forEach(element => element.style.borderColor = "white");
+        document.querySelectorAll('[id="played"]').forEach(element => element.style.borderColor = "white");
+        document.querySelectorAll('[id="MaxStreak"]').forEach(element => element.style.borderColor = "white");
         document.querySelectorAll('[id="ratio"]').forEach(element => element.style.color = "black");
         document.querySelectorAll('[id="played"]').forEach(element => element.style.color = "black");
         document.querySelectorAll('[id="currentStreak"]').forEach(element => element.style.color = "black");
@@ -357,7 +366,8 @@ function darkMode() {
         document.querySelectorAll("button").forEach(element => element.style.color = "black");
         document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#d3d6da");
         document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "black")
-
+        document.querySelectorAll('[id="currentStreak"]').forEach(element => element.style.borderColor = "white");
+        
     } else if (togg1.style.display == "none") {
         darkMode_on.forEach(element => element.style.display = "block");
         darkMode_off.forEach(element => element.style.display = "none");
@@ -381,7 +391,11 @@ function darkMode() {
         document.querySelectorAll('[id="played"]').forEach(element => element.style.color = "white");
         document.querySelectorAll('[id="currentStreak"]').forEach(element => element.style.color = "white");
         document.querySelectorAll('[id="MaxStreak"]').forEach(element => element.style.color = "white");
-
+        document.querySelectorAll('[id="f"]').forEach(element => element.style.borderColor = "black");
+        document.querySelectorAll('[id="ratio"]').forEach(element => element.style.borderColor = "black");
+        document.querySelectorAll('[id="played"]').forEach(element => element.style.borderColor = "black");
+        document.querySelectorAll('[id="currentStreak"]').forEach(element => element.borderColor = "black");
+        document.querySelectorAll('[id="MaxStreak"]').forEach(element => element.style.borderColor = "black");
         document.querySelectorAll("button").forEach(element => element.style.color = "white");
         document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#818384");
         document.querySelectorAll('[id^="guessRow-"][id*="tile"]').forEach(element => element.style.color = "white")
@@ -432,3 +446,43 @@ function Victory(isGameOver) {
     localStorage['Win'] = win
     localStorage['ratio'] = ((win / played) * 100).toFixed(2)
 }
+
+
+function ShareScore()
+{
+    let row = ''
+    let txt = ''
+
+    document.querySelectorAll('[class^="tile-container"]')[0].childNodes.forEach((ligne) =>
+    {
+        ligne.childNodes.forEach((tuile) => {
+            if (tuile.classList.contains("yellow-overlay")) {
+                row += '\uD83D\uDFE8'
+            }
+            else if (tuile.classList.contains("green-overlay")) {
+                row += '\uD83D\uDFE9'
+            }
+            else {
+                row += '\u2B1B'
+            }  
+        })
+        row += '%0a'
+        txt += row
+        row = ""
+    })
+    return txt
+}
+
+function socialWindow(url) {
+    var left = (screen.width - 570) / 2;
+    var top = (screen.height - 570) / 2;
+    var params = "menubar=no,toolbar=no,status=no,width=570,height=570,top=" + top + ",left=" + left; window.open(url, "NewWindow", params);
+}
+
+function setShareLinks() {
+    var pageUrl = encodeURIComponent('http://www.moordle.somee.com/');
+    url = "https://twitter.com/intent/tweet?url=" + pageUrl + "&text=" + "Moordle" + '%0a' + ShareScore();
+    socialWindow(url);
+}
+
+

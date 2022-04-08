@@ -394,7 +394,7 @@ function darkMode() {
         document.querySelectorAll('[id="f"]').forEach(element => element.style.borderColor = "black");
         document.querySelectorAll('[id="ratio"]').forEach(element => element.style.borderColor = "black");
         document.querySelectorAll('[id="played"]').forEach(element => element.style.borderColor = "black");
-        document.querySelectorAll('[id="currentStreak"]').forEach(element => element.borderColor = "black");
+        document.querySelectorAll('[id="currentStreak"]').forEach(element => element.style.borderColor = "black");
         document.querySelectorAll('[id="MaxStreak"]').forEach(element => element.style.borderColor = "black");
         document.querySelectorAll("button").forEach(element => element.style.color = "white");
         document.querySelectorAll("button").forEach(element => element.style.backgroundColor = "#818384");
