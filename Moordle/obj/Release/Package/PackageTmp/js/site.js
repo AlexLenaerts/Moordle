@@ -400,6 +400,10 @@ function Victory(isGameOver) {
         if (currentStreak >= MaxStreak) {
             localStorage['MaxStreak'] = currentStreak + 1
         }
+        else
+        {
+            localStorage['MaxStreak'] = MaxStreak
+        }
         localStorage['currentStreak'] = currentStreak + 1
         
         
@@ -411,10 +415,17 @@ function Victory(isGameOver) {
         localStorage['currentStreak'] = currentStreak + 1
         localStorage['MaxStreak'] = MaxStreak + 1
     }
+    //lose première partie
+    else if (!isGameOver && played == 0)
+    {
+        localStorage['MaxStreak'] = MaxStreak
+        localStorage['currentStreak'] = 0
+    }
     //compteur à zero 
     else if (!isGameOver)
     {
         localStorage['currentStreak'] = 0
+        localStorage['MaxStreak'] = MaxStreak
     }
     played = played + 1
     localStorage['played'] = played
