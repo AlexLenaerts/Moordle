@@ -481,7 +481,7 @@ function ShareScore()
         txt += row
         row = ""
     })
-    return txt + 'v'+ text2 +'/'+'6'
+    return text2 + '/' + '6' + txt
 }
 
 function socialWindow(url) {
@@ -492,7 +492,7 @@ function socialWindow(url) {
 
 function setShareLinks() {
     var pageUrl = encodeURIComponent('http://www.moordle.somee.com/');
-    url = "https://twitter.com/intent/tweet?url=" + pageUrl + "&text=" + '%23' + "Moordle" + '%20' + ShareScore().substring(56,59) + '%0a' + ShareScore().substring(0, 55);
+    url = "https://twitter.com/intent/tweet?url=" + pageUrl + "&text=" + '%23' + "Moordle" + '%20' + ShareScore().substring(0,3) + '%0a' + ShareScore().substring(3,58);
     socialWindow(url);
 }
 
