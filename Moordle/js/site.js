@@ -452,7 +452,9 @@ function ShareScore()
 {
     let row = ''
     let txt = ''
-
+    let score = 0
+    let count = 1
+    let text2 = ''
     document.querySelectorAll('[class^="tile-container"]')[0].childNodes.forEach((ligne) =>
     {
         ligne.childNodes.forEach((tuile) => {
@@ -461,16 +463,25 @@ function ShareScore()
             }
             else if (tuile.classList.contains("green-overlay")) {
                 row += '\uD83D\uDFE9'
+                score = score +1
             }
             else {
                 row += '\u2B1B'
-            }  
+            }
         })
+        if (score == 5) {
+            text2 = text2 + count
+            score = 0
+        }
+        else {
+            score = 0
+        }
+        count += 1
         row += '%0a'
         txt += row
         row = ""
     })
-    return txt
+    return txt + 'v'+ text2 +'/'+'6'
 }
 
 function socialWindow(url) {
@@ -481,7 +492,7 @@ function socialWindow(url) {
 
 function setShareLinks() {
     var pageUrl = encodeURIComponent('http://www.moordle.somee.com/');
-    url = "https://twitter.com/intent/tweet?url=" + pageUrl + "&text=" + "Moordle" + '%0a' + ShareScore();
+    url = "https://twitter.com/intent/tweet?url=" + pageUrl + "&text=" + '%23' + "Moordle" + '%20' + ShareScore().substring(56,59) + '%0a' + ShareScore().substring(0, 55);
     socialWindow(url);
 }
 
